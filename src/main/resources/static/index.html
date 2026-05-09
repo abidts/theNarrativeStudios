@@ -530,6 +530,8 @@
         /* ============================================
            RESPONSIVE
            ============================================ */
+
+        /* — Tablet — */
         @media (max-width: 1024px) {
             .navbar { padding: 24px 40px; }
             .hero { padding: 0 40px 60px; }
@@ -537,30 +539,95 @@
             .about, .services, .contact { padding-left: 40px; padding-right: 40px; }
             .showreel { padding-left: 40px; padding-right: 40px; }
             .footer-bar { padding: 28px 40px; }
-            .about-cols { grid-template-columns: 1fr 1fr; }
+            .about-cols { grid-template-columns: 1fr 1fr; gap: 36px; }
             .works-grid { grid-template-columns: repeat(2, 1fr); }
             .work-card.wide { grid-column: span 1; }
             .fullscreen-menu { padding: 100px 40px 50px; }
+            .contact-cols { grid-template-columns: 1fr 1fr; gap: 36px; }
         }
 
+        /* — Mobile — */
         @media (max-width: 768px) {
             body { cursor: auto; }
             .cursor, .cursor-follower { display: none; }
-            .navbar { padding: 22px 22px; }
+
+            /* Navbar */
+            .navbar { padding: 20px 20px; }
             .nav-tag { display: none; }
-            .hero { padding: 0 22px 55px; }
-            .hero-title { letter-spacing: -1.5px; }
+            .nav-menu-btn { cursor: pointer; }
+
+            /* Hero */
+            .hero { padding: 0 20px 52px; min-height: 100svh; }
+            .hero-title { letter-spacing: -1px; line-height: 0.93; }
+            .hero-eyebrow { margin-bottom: 18px; }
             .hero-scroll, .hero-reel { display: none; }
-            .works-header, .works-perspective { padding: 0 22px; }
-            .works-grid { grid-template-columns: 1fr; }
+
+            /* Ticker */
+            .ticker-item { padding: 0 28px; }
+
+            /* Works */
+            .works { padding: 64px 0 50px; }
+            .works-header { padding: 0 20px; margin-bottom: 30px; }
+            .works-perspective { padding: 0 20px; }
+            .works-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                transform: none !important;
+            }
             .work-card.wide { grid-column: span 1; }
-            .about, .services, .contact { padding-left: 22px; padding-right: 22px; }
-            .about-cols { grid-template-columns: 1fr; gap: 36px; }
-            .contact-cols { grid-template-columns: 1fr; gap: 36px; }
-            .showreel { padding-left: 22px; padding-right: 22px; }
-            .footer-bar { padding: 28px 22px; flex-direction: column; gap: 14px; text-align: center; }
-            .fullscreen-menu { padding: 100px 22px 50px; }
-            .menu-footer { flex-direction: column; align-items: flex-start; gap: 28px; }
+            .work-overlay { opacity: 1; }
+            .work-card img { opacity: 0.75; }
+            .works-count { display: none; }
+
+            /* About */
+            .about { padding: 64px 20px; }
+            .about-manifesto { margin-bottom: 44px; }
+            .about-cols { grid-template-columns: 1fr; gap: 32px; }
+
+            /* Services */
+            .services { padding: 64px 20px; }
+            .services-header { margin-bottom: 40px; }
+            .service-item { padding: 20px 0; cursor: pointer; }
+            .service-item:hover { padding-left: 0; }
+            .service-item:active { background: rgba(255,255,255,0.03); }
+
+            /* Showreel */
+            .showreel { padding: 0 20px 64px; }
+
+            /* Contact */
+            .contact { padding: 64px 20px 50px; }
+            .contact-cta { letter-spacing: -1px; margin-bottom: 44px; }
+            .contact-cols { grid-template-columns: 1fr; gap: 30px; }
+
+            /* Footer */
+            .footer-bar { padding: 28px 20px; flex-direction: column; gap: 12px; text-align: center; }
+            .footer-links { justify-content: center; }
+
+            /* Fullscreen menu */
+            .fullscreen-menu { padding: 90px 20px 44px; }
+            .menu-footer { flex-direction: column; align-items: flex-start; gap: 24px; }
+            .menu-nav a { font-size: clamp(2.6rem, 11vw, 5rem); }
+        }
+
+        /* — Small phones (≤ 480px) — */
+        @media (max-width: 480px) {
+            .hero-title { font-size: clamp(3rem, 13.5vw, 4.8rem); letter-spacing: -0.5px; }
+            .hero-eyebrow { font-size: 0.6rem; }
+            .about-manifesto { font-size: clamp(1.25rem, 5.8vw, 1.9rem); }
+            .section-heading { font-size: clamp(1.9rem, 8.5vw, 3rem); }
+            .service-name { font-size: clamp(1.1rem, 6.5vw, 1.55rem); }
+            .contact-cta { font-size: clamp(2rem, 10.5vw, 3.5rem); letter-spacing: -0.5px; }
+            .play-ring { width: 60px; height: 60px; }
+            .play-ring svg { width: 16px; height: 16px; }
+            .showreel-label { font-size: 0.6rem; letter-spacing: 3px; }
+            .about { padding: 54px 18px; }
+            .services { padding: 54px 18px; }
+            .contact { padding: 54px 18px 44px; }
+            .works-header, .works-perspective { padding: 0 18px; }
+            .showreel { padding: 0 18px 54px; }
+            .navbar { padding: 18px 18px; }
+            .footer-bar { padding: 24px 18px; }
+            .fullscreen-menu { padding: 80px 18px 40px; }
         }
     </style>
 </head>
