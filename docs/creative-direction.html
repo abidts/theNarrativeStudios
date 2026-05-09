@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Direction — The Narrative Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+        :root{--bg:#000;--text:#fff;--accent:#c8a96e;--border:rgba(255,255,255,0.08);}
+        html{scroll-behavior:smooth;}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none;}
+        a{text-decoration:none;color:inherit;}
+        .cursor{width:10px;height:10px;background:#fff;border-radius:50%;position:fixed;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:transform .15s ease;}
+        .cursor-follower{width:38px;height:38px;border:1px solid rgba(255,255,255,.35);border-radius:50%;position:fixed;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:all .25s ease;}
+        .cursor.hover{transform:translate(-50%,-50%) scale(2.5);background:rgba(255,255,255,.6);}
+        .cursor-follower.hover{transform:translate(-50%,-50%) scale(0);opacity:0;}
+        .navbar{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:32px 60px;display:flex;align-items:center;justify-content:space-between;}
+        .nav-logo{font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;}
+        .nav-right{display:flex;align-items:center;gap:40px;}
+        .nav-back{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:10px;transition:color .3s;}
+        .nav-back:hover{color:#fff;}
+        .nav-back::before{content:'←';font-size:1rem;}
+        .nav-menu-btn{font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#fff;background:none;border:none;cursor:none;display:flex;align-items:center;gap:14px;padding:0;}
+        .menu-lines{width:26px;height:14px;display:flex;flex-direction:column;justify-content:space-between;}
+        .menu-lines span{display:block;height:1px;background:#fff;transition:all .6s cubic-bezier(.25,.46,.45,.94);}
+        .menu-lines.open span:nth-child(1){transform:rotate(45deg) translate(5px,4px);}
+        .menu-lines.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+        .menu-lines.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-4px);}
+        .fullscreen-menu{position:fixed;inset:0;background:#000;z-index:999;display:flex;flex-direction:column;justify-content:center;padding:110px 60px 60px;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s ease;}
+        .fullscreen-menu.open{opacity:1;visibility:visible;}
+        .menu-nav{list-style:none;}
+        .menu-nav li{margin-bottom:4px;}
+        .menu-nav a{font-family:'Syne',sans-serif;font-size:clamp(3rem,8vw,8rem);font-weight:800;text-transform:uppercase;color:rgba(255,255,255,.12);display:block;line-height:1.1;transition:color .3s ease,letter-spacing .3s ease;}
+        .menu-nav a:hover{color:#fff;letter-spacing:2px;}
+        .menu-footer{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;padding-top:50px;border-top:1px solid var(--border);}
+        .menu-contact p{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:8px;}
+        .menu-contact a{font-size:1rem;color:rgba(255,255,255,.7);transition:color .3s;}
+        .menu-contact a:hover{color:#fff;}
+        .menu-social{display:flex;gap:28px;}
+        .menu-social a{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);transition:color .3s;}
+        .menu-social a:hover{color:#fff;}
+        .svc-hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 60px 80px;position:relative;overflow:hidden;}
+        .svc-hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1920&q=80') center/cover no-repeat;opacity:.2;animation:heroZoom 22s ease-in-out infinite alternate;}
+        @keyframes heroZoom{from{transform:scale(1.04);}to{transform:scale(1.12);}}
+        .svc-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.97) 0%,rgba(0,0,0,.15) 70%,transparent 100%);}
+        .svc-hero-content{position:relative;z-index:10;}
+        .svc-eyebrow{font-size:.7rem;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:22px;display:flex;align-items:center;gap:18px;}
+        .svc-eyebrow::before{content:'';display:block;width:36px;height:1px;background:rgba(255,255,255,.25);}
+        .svc-title{font-family:'Syne',sans-serif;font-size:clamp(4rem,10vw,13rem);font-weight:800;text-transform:uppercase;line-height:.88;letter-spacing:-4px;}
+        .svc-num{position:absolute;right:60px;bottom:80px;font-size:.65rem;letter-spacing:3px;color:rgba(255,255,255,.2);z-index:10;}
+        .svc-body{padding:100px 60px;}
+        .svc-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-bottom:100px;border-bottom:1px solid var(--border);padding-bottom:100px;align-items:start;}
+        .svc-intro-text h2{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:800;text-transform:uppercase;line-height:1.1;margin-bottom:28px;}
+        .svc-intro-text p{font-size:.95rem;color:rgba(255,255,255,.5);line-height:1.9;font-weight:300;margin-bottom:16px;}
+        .svc-meta{display:flex;flex-direction:column;gap:28px;}
+        .svc-meta-item{border-left:2px solid var(--accent);padding-left:20px;}
+        .svc-meta-label{font-size:.6rem;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:6px;}
+        .svc-meta-val{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;text-transform:uppercase;}
+        .svc-section-label{font-size:.65rem;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:50px;}
+        .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;margin-bottom:100px;}
+        .process-card{padding:36px 28px;border:1px solid var(--border);transition:border-color .3s ease;}
+        .process-card:hover{border-color:rgba(255,255,255,.25);}
+        .process-step-num{font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;color:rgba(255,255,255,.06);line-height:1;margin-bottom:18px;}
+        .process-card h4{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+        .process-card p{font-size:.85rem;color:rgba(255,255,255,.4);line-height:1.8;font-weight:300;}
+        .includes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:100px;}
+        .include-item{padding:28px 30px;background:rgba(255,255,255,.03);display:flex;align-items:flex-start;gap:16px;transition:background .3s ease;}
+        .include-item:hover{background:rgba(255,255,255,.06);}
+        .include-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px;}
+        .include-item span{font-size:.88rem;color:rgba(255,255,255,.6);line-height:1.6;font-weight:300;}
+        .svc-cta{text-align:center;padding:80px 0;border-top:1px solid var(--border);}
+        .svc-cta p{font-size:.7rem;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:30px;}
+        .svc-cta h3{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,4.5rem);font-weight:800;text-transform:uppercase;line-height:1;margin-bottom:40px;}
+        .cta-btn{display:inline-block;padding:16px 48px;border:1px solid rgba(255,255,255,.25);font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;transition:all .3s ease;}
+        .cta-btn:hover{background:#fff;color:#000;}
+        .footer-bar{padding:36px 60px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+        .footer-logo{font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.22);}
+        .footer-copy{font-size:.72rem;color:rgba(255,255,255,.16);}
+        .footer-links{display:flex;gap:28px;}
+        .footer-links a{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.18);transition:color .3s;}
+        .footer-links a:hover{color:rgba(255,255,255,.6);}
+        .fade-up{opacity:0;transform:translateY(38px);transition:opacity .9s ease,transform .9s ease;}
+        .fade-up.in{opacity:1;transform:translateY(0);}
+        @media(max-width:1024px){.navbar,.footer-bar{padding-left:40px;padding-right:40px;}.svc-hero,.svc-body{padding-left:40px;padding-right:40px;}.process-grid{grid-template-columns:repeat(2,1fr);}.includes-grid{grid-template-columns:repeat(2,1fr);}.fullscreen-menu{padding:100px 40px 50px;}}
+        @media(max-width:768px){body{cursor:auto;}.cursor,.cursor-follower{display:none;}.navbar{padding:22px;}.svc-hero{padding:0 22px 55px;}.svc-num{display:none;}.svc-body{padding:60px 22px;}.svc-intro{grid-template-columns:1fr;gap:40px;}.process-grid{grid-template-columns:1fr;}.includes-grid{grid-template-columns:1fr;}.footer-bar{padding:28px 22px;flex-direction:column;gap:14px;text-align:center;}.fullscreen-menu{padding:100px 22px 50px;}.menu-footer{flex-direction:column;align-items:flex-start;gap:28px;}}
+    </style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+<nav class="navbar">
+    <a href="index.html" class="nav-logo">The Narrative Studio</a>
+    <div class="nav-right">
+        <a href="index.html#services" class="nav-back">All Services</a>
+        <button class="nav-menu-btn" id="menuBtn" onclick="toggleMenu()">
+            <div class="menu-lines" id="menuLines"><span></span><span></span><span></span></div>
+            <span id="menuText">Menu</span>
+        </button>
+    </div>
+</nav>
+<div class="fullscreen-menu" id="fullscreenMenu">
+    <ul class="menu-nav">
+        <li><a href="index.html#works" onclick="toggleMenu()">Works</a></li>
+        <li><a href="index.html#about" onclick="toggleMenu()">About</a></li>
+        <li><a href="index.html#services" onclick="toggleMenu()">Services</a></li>
+        <li><a href="index.html#contact" onclick="toggleMenu()">Contact</a></li>
+    </ul>
+    <div class="menu-footer">
+        <div class="menu-contact"><p>Say Hello</p><a href="mailto:hello@narrativestudio.com">hello@narrativestudio.com</a></div>
+        <div class="menu-social"><a href="#">Instagram</a><a href="#">Vimeo</a><a href="#">LinkedIn</a></div>
+    </div>
+</div>
+
+<section class="svc-hero">
+    <div class="svc-hero-bg"></div>
+    <div class="svc-hero-overlay"></div>
+    <div class="svc-hero-content">
+        <div class="svc-eyebrow">Service 05</div>
+        <h1 class="svc-title">Creative<br>Direction</h1>
+    </div>
+    <div class="svc-num">05 / 06</div>
+</section>
+
+<div class="svc-body">
+    <div class="svc-intro fade-up">
+        <div class="svc-intro-text">
+            <h2>Vision That Unifies Everything</h2>
+            <p>Great creative direction is the invisible thread that holds every element of a campaign together. We define the visual language, tone, and aesthetic framework that makes your brand immediately recognisable.</p>
+            <p>From concepting and mood boarding to on-set art direction, we ensure every visual decision serves the story and leaves a lasting impression.</p>
+        </div>
+        <div class="svc-meta">
+            <div class="svc-meta-item"><div class="svc-meta-label">Deliverable</div><div class="svc-meta-val">Vision & Execution</div></div>
+            <div class="svc-meta-item"><div class="svc-meta-label">Timeline</div><div class="svc-meta-val">1 – 8 Weeks</div></div>
+            <div class="svc-meta-item"><div class="svc-meta-label">Ideal For</div><div class="svc-meta-val">Campaigns, Brands, Launches</div></div>
+        </div>
+    </div>
+    <div class="fade-up">
+        <div class="svc-section-label">Our Process</div>
+        <div class="process-grid">
+            <div class="process-card"><div class="process-step-num">01</div><h4>Strategy</h4><p>Brand immersion, audience research, and creative brief development to anchor all decisions.</p></div>
+            <div class="process-card"><div class="process-step-num">02</div><h4>Concepting</h4><p>Big idea generation, treatment writing, and concept presentation for your campaign or project.</p></div>
+            <div class="process-card"><div class="process-step-num">03</div><h4>Art Direction</h4><p>Mood boards, colour palette, typography, visual style guide, and on-set / on-location supervision.</p></div>
+            <div class="process-card"><div class="process-step-num">04</div><h4>Execution</h4><p>Overseeing the full creative execution — ensuring every deliverable aligns with the original vision.</p></div>
+        </div>
+    </div>
+    <div class="fade-up">
+        <div class="svc-section-label">What's Included</div>
+        <div class="includes-grid">
+            <div class="include-item"><div class="include-dot"></div><span>Brand Immersion & Audit</span></div>
+            <div class="include-item"><div class="include-dot"></div><span>Campaign Concept & Big Idea</span></div>
+            <div class="include-item"><div class="include-dot"></div><span>Creative Treatment Document</span></div>
+            <div class="include-item"><div class="include-dot"></div><span>Mood Boards & References</span></div>
+            <div class="include-item"><div class="include-dot"></div><span>Colour & Typography Direction</span></div>
+            <div class="include-item"><div class="include-dot"></div><span>Visual Style Guide</span></div>
+            <div class="include-item"><div class="include-dot"></div><span>On-Set / On-Location Art Direction</span></div>
+            <div class="include-item"><div class="include-dot"></div><span>Prop & Wardrobe Direction</span></div>
+            <div class="include-item"><div class="include-dot"></div><span>Set Design Consultation</span></div>
+            <div class="include-item"><div class="include-dot"></div><span>Creative Oversight of Production</span></div>
+            <div class="include-item"><div class="include-dot"></div><span>Post-Production Creative Oversight</span></div>
+            <div class="include-item"><div class="include-dot"></div><span>Final Campaign Sign-off</span></div>
+        </div>
+    </div>
+    <div class="svc-cta fade-up">
+        <p>Ready to start</p>
+        <h3>Define Your<br>Visual Identity</h3>
+        <a href="index.html#contact" class="cta-btn">Start a Project</a>
+    </div>
+</div>
+
+<div class="footer-bar">
+    <div class="footer-logo">The Narrative Studio</div>
+    <div class="footer-copy">&copy; 2024 The Narrative Studio</div>
+    <div class="footer-links"><a href="index.html">Home</a><a href="index.html#services">Services</a></div>
+</div>
+<script>
+    const cur=document.getElementById('cursor'),fol=document.getElementById('cursorFollower');
+    let mx=0,my=0,fx=0,fy=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+    (function loop(){fx+=(mx-fx)*.12;fy+=(my-fy)*.12;fol.style.left=fx+'px';fol.style.top=fy+'px';requestAnimationFrame(loop);})();
+    document.querySelectorAll('a,button,.process-card').forEach(el=>{
+        el.addEventListener('mouseenter',()=>{cur.classList.add('hover');fol.classList.add('hover');});
+        el.addEventListener('mouseleave',()=>{cur.classList.remove('hover');fol.classList.remove('hover');});
+    });
+    function toggleMenu(){const menu=document.getElementById('fullscreenMenu'),lines=document.getElementById('menuLines'),txt=document.getElementById('menuText'),open=menu.classList.toggle('open');lines.classList.toggle('open',open);txt.textContent=open?'Close':'Menu';document.body.style.overflow=open?'hidden':'';}
+    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{threshold:0.1});
+    document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
