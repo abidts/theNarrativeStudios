@@ -363,11 +363,12 @@
             width: 36px; height: 1px; background: rgba(255,255,255,0.15);
         }
         .about-manifesto {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(1.5rem, 3.2vw, 3.2rem);
-            font-weight: 700; text-transform: uppercase;
-            line-height: 1.18; max-width: 1050px;
-            color: rgba(255,255,255,0.88); margin-bottom: 80px;
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(0.88rem, 1.2vw, 1rem);
+            font-weight: 300; text-transform: none;
+            line-height: 1.9; max-width: 900px;
+            color: rgba(255,255,255,0.55); margin-bottom: 80px;
+            text-align: justify;
         }
         .about-cols {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px;
@@ -482,9 +483,12 @@
         }
         .contact-cta:hover { color: rgba(255,255,255,0.88); }
         .contact-cols {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
             padding-top: 50px; border-top: 1px solid var(--border);
+            align-items: start;
         }
+        .contact-info-block { margin-bottom: 44px; }
+        .contact-info-block:last-child { margin-bottom: 0; }
         .cc-label {
             font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase;
             color: rgba(255,255,255,0.18); margin-bottom: 14px;
@@ -504,8 +508,6 @@
             border-top: 1px solid var(--border);
         }
         .contact-form-inner {
-            max-width: 640px;
-            margin: 0 auto;
             text-align: center;
         }
         .contact-form-eyebrow {
@@ -517,6 +519,7 @@
             content: ''; display: block; width: 28px; height: 1px;
             background: rgba(255,255,255,.2);
         }
+        .cf-group { text-align: left; }
         .contact-form-title {
             font-family: 'Syne', sans-serif;
             font-size: clamp(2.2rem, 5vw, 4rem);
@@ -566,9 +569,6 @@
             letter-spacing: 4px; color: var(--accent);
             margin-bottom: 14px; font-family: 'Inter', sans-serif;
             font-weight: 300;
-        }
-        @media(max-width:768px){
-            .contact-form-section { padding: 70px 20px; }
         }
         /* ============================================
            FOOTER BOTTOM
@@ -687,7 +687,7 @@
         @media (max-width: 480px) {
             .hero-title { font-size: clamp(3rem, 13.5vw, 4.8rem); letter-spacing: -0.5px; }
             .hero-eyebrow { font-size: 0.6rem; }
-            .about-manifesto { font-size: clamp(1.25rem, 5.8vw, 1.9rem); }
+            .about-manifesto { font-size: clamp(0.82rem, 4vw, 0.95rem); }
             .section-heading { font-size: clamp(1.9rem, 8.5vw, 3rem); }
             .service-name { font-size: clamp(1.1rem, 6.5vw, 1.55rem); }
             .contact-cta { font-size: clamp(2rem, 10.5vw, 3.5rem); letter-spacing: -0.5px; }
@@ -943,43 +943,37 @@
         Let's Make<br>Something Great
     </div>
     <div class="contact-cols">
+        <!-- LEFT: Info -->
         <div class="fade-up">
-            <div class="cc-label">Location</div>
-            <span class="cc-item">The Narrative Studios<br>Srinagar, 190006</span>
-        </div>
-        <div class="fade-up">
-            <!-- <div class="cc-label">Contact</div> -->
-            <!-- <a href="mailto:hello@narrativestudio.com" class="cc-item">hello@narrativestudio.com</a> -->
-            <!-- <a href="tel:+912212345678" class="cc-item">+91 22 1234 5678</a> -->
-        </div>
-        <div class="fade-up">
-            <div class="cc-label">Follow Us</div>
-            <a href="https://www.instagram.com/_thenarrativestudios_/?hl=en" target="_blank" class="cc-item">Instagram</a>
-            <a href="https://youtube.com/@thenarrativefilms?si=MxKcBrTlnpysi9S3" target="_blank" class="cc-item">YouTube</a>
-            <!-- <a href="#" class="cc-item">LinkedIn</a> -->
-        </div>
-    </div>
-</section>
-
-<!-- CONTACT FORM -->
-<section class="contact-form-section" id="contact-form">
-    <div class="contact-form-inner fade-up">
-        <div class="contact-form-eyebrow">Get In Touch</div>
-        <!-- <h2 class="contact-form-title">For More</h2> -->
-        <form id="contactForm" onsubmit="handleFormSubmit(event)">
-            <div class="cf-group">
-                <label for="cf-email">Email Address</label>
-                <input type="email" id="cf-email" name="email" placeholder="your@email.com" required>
+            <div class="contact-info-block">
+                <div class="cc-label">Location</div>
+                <span class="cc-item">The Narrative Studios<br>Srinagar, 190006</span>
             </div>
-            <div class="cf-group">
-                <label for="cf-phone">Phone Number</label>
-                <input type="tel" id="cf-phone" name="phone" placeholder="+91 00000 00000" required>
+            <div class="contact-info-block">
+                <div class="cc-label">Follow Us</div>
+                <a href="https://www.instagram.com/_thenarrativestudios_/?hl=en" target="_blank" class="cc-item">Instagram</a>
+                <a href="https://youtube.com/@thenarrativefilms?si=MxKcBrTlnpysi9S3" target="_blank" class="cc-item">YouTube</a>
             </div>
-            <button type="submit" class="cf-submit">Submit</button>
-        </form>
-        <div class="cf-success" id="cfSuccess">
-            <span>✦ Message Received</span>
-            Our Team Will Contact<br>You Shortly
+        </div>
+        <!-- RIGHT: Form -->
+        <div class="contact-form-inner fade-up">
+            <div class="contact-form-eyebrow">Get In Touch</div>
+            <!-- <h2 class="contact-form-title">For More</h2> -->
+            <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                <div class="cf-group">
+                    <label for="cf-email">Email Address</label>
+                    <input type="email" id="cf-email" name="email" placeholder="your@email.com" required>
+                </div>
+                <div class="cf-group">
+                    <label for="cf-phone">Phone Number</label>
+                    <input type="tel" id="cf-phone" name="phone" placeholder="+91 00000 00000" required>
+                </div>
+                <button type="submit" class="cf-submit">Submit</button>
+            </form>
+            <div class="cf-success" id="cfSuccess">
+                <span>✦ Message Received</span>
+                Our Team Will Contact<br>You Shortly
+            </div>
         </div>
     </div>
 </section>
