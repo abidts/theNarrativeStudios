@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Process — The Narrative Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+        :root{--bg:#000;--text:#fff;--accent:#c8a96e;--border:rgba(255,255,255,0.08);}
+        html{scroll-behavior:smooth;}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none;}
+        a{text-decoration:none;color:inherit;}
+        .cursor{width:10px;height:10px;background:#fff;border-radius:50%;position:fixed;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:transform .15s ease;}
+        .cursor-follower{width:38px;height:38px;border:1px solid rgba(255,255,255,.35);border-radius:50%;position:fixed;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:all .25s ease;}
+        .cursor.hover{transform:translate(-50%,-50%) scale(2.5);background:rgba(255,255,255,.6);}
+        .cursor-follower.hover{transform:translate(-50%,-50%) scale(0);opacity:0;}
+        /* NAVBAR */
+        .navbar{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:32px 60px;display:flex;align-items:center;justify-content:space-between;}
+        .nav-logo{font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;}
+        .nav-right{display:flex;align-items:center;gap:40px;}
+        .nav-back{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:10px;transition:color .3s;}
+        .nav-back:hover{color:#fff;}
+        .nav-back::before{content:'←';font-size:1rem;}
+        .nav-menu-btn{font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#fff;background:none;border:none;cursor:none;display:flex;align-items:center;gap:14px;padding:0;}
+        .menu-lines{width:26px;height:14px;display:flex;flex-direction:column;justify-content:space-between;}
+        .menu-lines span{display:block;height:1px;background:#fff;transition:all .6s cubic-bezier(.25,.46,.45,.94);}
+        .menu-lines.open span:nth-child(1){transform:rotate(45deg) translate(5px,4px);}
+        .menu-lines.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+        .menu-lines.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-4px);}
+        /* FULLSCREEN MENU */
+        .fullscreen-menu{position:fixed;inset:0;background:#000;z-index:999;display:flex;flex-direction:column;justify-content:center;padding:110px 60px 60px;opacity:0;visibility:hidden;transition:opacity .5s ease,visibility .5s ease;}
+        .fullscreen-menu.open{opacity:1;visibility:visible;}
+        .menu-nav{list-style:none;}
+        .menu-nav li{margin-bottom:4px;}
+        .menu-nav a{font-family:'Syne',sans-serif;font-size:clamp(3rem,8vw,8rem);font-weight:800;text-transform:uppercase;color:rgba(255,255,255,.12);display:block;line-height:1.1;transition:color .3s ease,letter-spacing .3s ease;}
+        .menu-nav a:hover{color:#fff;letter-spacing:2px;}
+        .menu-footer{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;padding-top:50px;border-top:1px solid var(--border);}
+        .menu-contact p{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:8px;}
+        .menu-contact a{font-size:1rem;color:rgba(255,255,255,.7);transition:color .3s;}
+        .menu-contact a:hover{color:#fff;}
+        .menu-social{display:flex;gap:28px;}
+        .menu-social a{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);transition:color .3s;}
+        .menu-social a:hover{color:#fff;}
+        /* HERO */
+        .page-hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 60px 80px;position:relative;overflow:hidden;}
+        .page-hero-bg{position:absolute;inset:0;background:url('https://res.cloudinary.com/dveg0ai0n/image/upload/v1778444277/Ultra-wide_cinematic_landing_page_background_202605101225_erfuqh.jpg') center/cover no-repeat;opacity:.18;animation:heroZoom 22s ease-in-out infinite alternate;}
+        @keyframes heroZoom{from{transform:scale(1.04);}to{transform:scale(1.12);}}
+        .page-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.97) 0%,rgba(0,0,0,.2) 70%,transparent 100%);}
+        .page-hero-content{position:relative;z-index:10;}
+        .page-eyebrow{font-size:.7rem;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:22px;display:flex;align-items:center;gap:18px;}
+        .page-eyebrow::before{content:'';display:block;width:36px;height:1px;background:rgba(255,255,255,.25);}
+        .page-title{font-family:'Syne',sans-serif;font-size:clamp(4rem,10vw,13rem);font-weight:800;text-transform:uppercase;line-height:.88;letter-spacing:-4px;}
+        /* PROCESS STEPS */
+        .process-body{padding:100px 60px;}
+        .process-intro{max-width:700px;margin-bottom:100px;}
+        .process-intro p{font-size:1.1rem;color:rgba(255,255,255,.45);line-height:1.85;font-weight:300;}
+        .steps-list{display:flex;flex-direction:column;gap:0;}
+        .step{display:grid;grid-template-columns:120px 1fr;gap:60px;padding:70px 0;border-top:1px solid var(--border);align-items:start;}
+        .step:last-child{border-bottom:1px solid var(--border);}
+        .step-num{font-family:'Syne',sans-serif;font-size:5rem;font-weight:800;color:rgba(255,255,255,.06);line-height:1;padding-top:8px;}
+        .step-content{display:block;}
+        .step-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3.5vw,3.2rem);font-weight:800;text-transform:uppercase;letter-spacing:-1px;line-height:1.05;margin-bottom:28px;}
+        .step-desc{font-size:.95rem;color:rgba(255,255,255,.45);line-height:1.9;font-weight:300;max-width:620px;}
+        .step-accent{display:block;width:40px;height:2px;background:var(--accent);margin-bottom:24px;}
+        /* CTA */
+        .process-cta{text-align:center;padding:100px 0 80px;border-top:1px solid var(--border);margin-top:80px;}
+        .process-cta p{font-size:.7rem;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:30px;}
+        .process-cta h3{font-family:'Syne',sans-serif;font-size:clamp(2rem,5vw,4.5rem);font-weight:800;text-transform:uppercase;line-height:1;margin-bottom:40px;}
+        .cta-btn{display:inline-block;padding:16px 48px;border:1px solid rgba(255,255,255,.25);font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;transition:all .3s ease;}
+        .cta-btn:hover{background:#fff;color:#000;}
+        /* FOOTER */
+        .footer-bar{padding:36px 60px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+        .footer-logo{font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.22);}
+        .footer-copy{font-size:.72rem;color:rgba(255,255,255,.16);}
+        .footer-links{display:flex;gap:28px;}
+        .footer-links a{font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.18);transition:color .3s;}
+        .footer-links a:hover{color:rgba(255,255,255,.6);}
+        .fade-up{opacity:0;transform:translateY(38px);transition:opacity .9s ease,transform .9s ease;}
+        .fade-up.in{opacity:1;transform:translateY(0);}
+        /* RESPONSIVE */
+        @media(max-width:1024px){.navbar,.footer-bar{padding-left:40px;padding-right:40px;}.page-hero,.process-body{padding-left:40px;padding-right:40px;}.fullscreen-menu{padding:100px 40px 50px;}}
+        @media(max-width:768px){html,body{overflow-x:hidden;}body{cursor:auto;}.cursor,.cursor-follower{display:none;}.navbar{padding:18px 20px;}.nav-logo{letter-spacing:1.5px;font-size:.72rem;}.nav-back{display:none;}.nav-menu-btn{cursor:pointer;}#menuText{display:none;}.page-hero{padding:0 20px 52px;min-height:100svh;}.page-title{font-size:clamp(2.5rem,11vw,4rem);letter-spacing:-1px;line-height:.92;}.process-body{padding:60px 20px;}.process-intro{margin-bottom:60px;}.step{grid-template-columns:1fr;gap:16px;padding:48px 0;}.step-num{font-size:3rem;}.step-title{font-size:clamp(1.6rem,8vw,2.4rem);}.footer-bar{padding:28px 20px;flex-direction:column;gap:14px;text-align:center;}.footer-links{justify-content:center;}.fullscreen-menu{padding:90px 20px 44px;}.menu-footer{flex-direction:column;align-items:flex-start;gap:28px;}.menu-nav a{font-size:clamp(2.6rem,11vw,5rem);}}
+        @media(max-width:480px){.page-title{font-size:clamp(2.2rem,10.5vw,3.2rem);}.process-body{padding:50px 18px;}.navbar{padding:16px 18px;}.footer-bar{padding:22px 18px;}}
+    </style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<nav class="navbar">
+    <a href="index.html" class="nav-logo">The Narrative Studio</a>
+    <div class="nav-right">
+        <a href="index.html" class="nav-back">Home</a>
+        <button class="nav-menu-btn" id="menuBtn" onclick="toggleMenu()">
+            <div class="menu-lines" id="menuLines"><span></span><span></span><span></span></div>
+            <span id="menuText">Menu</span>
+        </button>
+    </div>
+</nav>
+
+<div class="fullscreen-menu" id="fullscreenMenu">
+    <ul class="menu-nav">
+        <li><a href="index.html#works" onclick="toggleMenu()">Works</a></li>
+        <li><a href="index.html#about" onclick="toggleMenu()">About</a></li>
+        <li><a href="index.html#services" onclick="toggleMenu()">Services</a></li>
+        <li><a href="our-process.html" onclick="toggleMenu()">Our Process</a></li>
+        <li><a href="index.html#contact" onclick="toggleMenu()">Contact</a></li>
+    </ul>
+    <div class="menu-footer">
+        <div class="menu-contact"><p>Say Hello</p><a href="mailto:workwithnarrative@gmail.com">workwithnarrative@gmail.com</a></div>
+        <div class="menu-social">
+            <a href="https://www.instagram.com/_thenarrativestudios_/?hl=en" target="_blank">Instagram</a>
+            <a href="https://youtube.com/@thenarrativefilms?si=MxKcBrTlnpysi9S3" target="_blank">YouTube</a>
+            <a href="#">LinkedIn</a>
+        </div>
+    </div>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+        <div class="page-eyebrow">How We Work</div>
+        <h1 class="page-title">Our<br>Process</h1>
+    </div>
+</section>
+
+<!-- PROCESS -->
+<div class="process-body">
+    <div class="process-intro fade-up">
+        <p>Every project begins with listening. We don't hand you a template — we build a process around your story, your audience, and the outcome you actually want. Four steps. No fluff. Real results.</p>
+    </div>
+
+    <div class="steps-list">
+
+        <div class="step fade-up">
+            <div class="step-num">01</div>
+            <div class="step-content">
+                <span class="step-accent"></span>
+                <h2 class="step-title">Vision Alignment</h2>
+                <p class="step-desc">We listen. We understand your story — not just your brief. We align on tone, audience, and the emotional outcome you want. Clear direction. No guessing.</p>
+            </div>
+        </div>
+
+        <div class="step fade-up">
+            <div class="step-num">02</div>
+            <div class="step-content">
+                <span class="step-accent"></span>
+                <h2 class="step-title">Creative Development</h2>
+                <p class="step-desc">We storyboard your vision. Visual concepts. Cinematographic direction. Multiple creative options. You have real choices, not just one path.</p>
+            </div>
+        </div>
+
+        <div class="step fade-up">
+            <div class="step-num">03</div>
+            <div class="step-content">
+                <span class="step-accent"></span>
+                <h2 class="step-title">Production</h2>
+                <p class="step-desc">We build what we promised. AI powers the speed. Humans shape every detail. Direction, refinement, quality control. Every frame matters.</p>
+            </div>
+        </div>
+
+        <div class="step fade-up">
+            <div class="step-num">04</div>
+            <div class="step-content">
+                <span class="step-accent"></span>
+                <h2 class="step-title">Delivery</h2>
+                <p class="step-desc">Your feedback is built in. We refine. We deliver in all formats.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="process-cta fade-up">
+        <p>Ready to start?</p>
+        <h3>Let's Build<br>Something Real</h3>
+        <a href="mailto:workwithnarrative@gmail.com" class="cta-btn">Start a Project</a>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer-bar">
+    <div class="footer-logo">The Narrative Studio</div>
+    <div class="footer-copy">© 2025 The Narrative Studio</div>
+    <div class="footer-links">
+        <a href="index.html#services">Services</a>
+        <a href="our-process.html">Process</a>
+        <a href="index.html#contact">Contact</a>
+    </div>
+</footer>
+
+<script>
+    const cursor = document.getElementById('cursor');
+    const follower = document.getElementById('cursorFollower');
+    document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        setTimeout(() => {
+            follower.style.left = e.clientX + 'px';
+            follower.style.top = e.clientY + 'px';
+        }, 80);
+    });
+    document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); follower.classList.add('hover'); });
+        el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); follower.classList.remove('hover'); });
+    });
+    function toggleMenu() {
+        const menu = document.getElementById('fullscreenMenu');
+        const lines = document.getElementById('menuLines');
+        menu.classList.toggle('open');
+        lines.classList.toggle('open');
+    }
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
