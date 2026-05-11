@@ -990,7 +990,7 @@
 
 <!-- SCRIPTS -->
 <script>
-    /* ---------- Contact Form (Formspree) ---------- */
+    /* ---------- Contact Form (FormSubmit) ---------- */
     async function handleFormSubmit(e) {
         e.preventDefault();
         const form = e.target;
@@ -998,7 +998,7 @@
         btn.textContent = 'Sending...';
         btn.disabled = true;
         try {
-            const res = await fetch('https://formspree.io/f/REPLACE_WITH_YOUR_ID', {
+            const res = await fetch('https://formsubmit.co/ajax/workwithnarrative@gmail.com', {
                 method: 'POST',
                 body: new FormData(form),
                 headers: { 'Accept': 'application/json' }
