@@ -990,17 +990,34 @@
 
 <!-- SCRIPTS -->
 <script>
-    /* ---------- Contact Form ---------- */
-    function handleFormSubmit(e) {
+    /* ---------- Contact Form (Formspree) ---------- */
+    async function handleFormSubmit(e) {
         e.preventDefault();
-        document.getElementById('contactForm').style.display = 'none';
-        const success = document.getElementById('cfSuccess');
-        success.style.display = 'block';
-        success.style.animation = 'none';
-        success.offsetHeight;
-        success.style.opacity = '0';
-        success.style.transition = 'opacity .6s ease';
-        requestAnimationFrame(() => { success.style.opacity = '1'; });
+        const form = e.target;
+        const btn = form.querySelector('.cf-submit');
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
+        try {
+            const res = await fetch('https://formspree.io/f/REPLACE_WITH_YOUR_ID', {
+                method: 'POST',
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            });
+            if (res.ok) {
+                form.style.display = 'none';
+                const success = document.getElementById('cfSuccess');
+                success.style.display = 'block';
+                success.style.opacity = '0';
+                success.style.transition = 'opacity .6s ease';
+                requestAnimationFrame(() => { success.style.opacity = '1'; });
+            } else {
+                btn.textContent = 'Try Again';
+                btn.disabled = false;
+            }
+        } catch {
+            btn.textContent = 'Try Again';
+            btn.disabled = false;
+        }
     }
 
     /* ---------- Custom Cursor ---------- */
