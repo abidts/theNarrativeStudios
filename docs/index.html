@@ -1229,10 +1229,6 @@
         <!-- Videos -->
         <video class="sr-video active" id="srvid0" loop playsinline preload="metadata"
                src="https://res.cloudinary.com/dveg0ai0n/video/upload/v1778935744/d_Decos_Interior_gbdknp.mp4"></video>
-        <video class="sr-video" id="srvid1" loop playsinline preload="metadata"
-               src="https://res.cloudinary.com/dveg0ai0n/video/upload/v1778934828/Cashmere_House_Animation_fryrkp.mp4"></video>
-        <video class="sr-video" id="srvid2" loop playsinline preload="metadata"
-               src="https://res.cloudinary.com/dveg0ai0n/video/upload/v1778935787/Electronics_Brand_Ad_lbluvm.mp4"></video>
 
         <!-- Gradient overlay -->
         <div class="sr-grad"></div>
@@ -1241,17 +1237,6 @@
         <div class="sr-info">
             <div class="sr-info-tag" id="srTag">Interior Design</div>
             <div class="sr-info-title" id="srTitle">D Decos</div>
-        </div>
-
-        <!-- Prev / Next arrows -->
-        <button class="sr-nav sr-nav-prev" id="srPrev" aria-label="Previous">←</button>
-        <button class="sr-nav sr-nav-next" id="srNext" aria-label="Next">→</button>
-
-        <!-- Dots -->
-        <div class="sr-dots">
-            <div class="sr-dot active" data-srto="0"></div>
-            <div class="sr-dot" data-srto="1"></div>
-            <div class="sr-dot" data-srto="2"></div>
         </div>
 
         <!-- Bottom controls -->
@@ -1558,12 +1543,10 @@
 
     /* ---------- Showreel Video Carousel ---------- */
     (function () {
-        const SR_TOTAL = 3;
+        const SR_TOTAL = 1;
         let srIdx = 0;
         const srSlides = [
-            { tag: 'Interior Design', title: 'D Decos' },
-            { tag: 'Animation',       title: 'Cashmere House' },
-            { tag: 'Brand Ad',        title: 'Electronics' }
+            { tag: 'Interior Design', title: 'D Decos' }
         ];
 
         function srVid(i) { return document.getElementById('srvid' + i); }
@@ -1586,8 +1569,10 @@
             srSyncPlayIcon();
         }
 
-        document.getElementById('srPrev').addEventListener('click', () => srGoTo(srIdx - 1));
-        document.getElementById('srNext').addEventListener('click', () => srGoTo(srIdx + 1));
+        const srPrevBtn = document.getElementById('srPrev');
+        const srNextBtn = document.getElementById('srNext');
+        if (srPrevBtn) srPrevBtn.addEventListener('click', () => srGoTo(srIdx - 1));
+        if (srNextBtn) srNextBtn.addEventListener('click', () => srGoTo(srIdx + 1));
         document.querySelectorAll('.sr-dot').forEach(d => d.addEventListener('click', () => srGoTo(+d.dataset.srto)));
 
         /* Play / Pause */
@@ -1642,8 +1627,7 @@
         });
 
         /* Cursor hover */
-        [document.getElementById('srPrev'), document.getElementById('srNext'),
-         document.getElementById('srPlayBtn'), document.getElementById('srMuteBtn'),
+        [document.getElementById('srPlayBtn'), document.getElementById('srMuteBtn'),
          ...document.querySelectorAll('.sr-dot')].forEach(el => {
             if (!el) return;
             el.addEventListener('mouseenter', () => { cur.classList.add('hover'); fol.classList.add('hover'); });
