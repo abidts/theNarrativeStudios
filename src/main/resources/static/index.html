@@ -1573,10 +1573,11 @@
             srIdx = ((i % SR_TOTAL) + SR_TOTAL) % SR_TOTAL;
             const next = srVid(srIdx);
 
+            const wasPlaying = prev && !prev.paused;
             if (prev && prev !== next) { prev.classList.remove('active'); prev.pause(); }
             if (next) {
                 next.classList.add('active');
-                next.play().catch(() => {});
+                if (wasPlaying) next.play().catch(() => {});
             }
 
             document.getElementById('srTag').textContent   = srSlides[srIdx].tag;
@@ -1649,8 +1650,8 @@
             el.addEventListener('mouseleave', () => { cur.classList.remove('hover'); fol.classList.remove('hover'); });
         });
 
-        /* Auto-start on load */
-        window.addEventListener('load', () => { const v = srVid(0); if (v) v.play().catch(() => {}); srSyncPlayIcon(); });
+        /* Show correct play icon on load (videos stay paused by default) */
+        window.addEventListener('load', () => { srSyncPlayIcon(); });
     })();
 </script>
 </body>
