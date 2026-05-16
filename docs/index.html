@@ -593,6 +593,146 @@
         .footer-links a:hover { color: rgba(255,255,255,0.6); }
 
         /* ============================================
+           PORTRAIT VIDEO CAROUSEL
+           ============================================ */
+        .portrait-reel {
+            padding: 110px 0;
+            border-top: 1px solid var(--border);
+            overflow: hidden;
+            position: relative;
+        }
+        .portrait-reel-header {
+            padding: 0 60px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 60px;
+        }
+        .pcar-nav-group { display: flex; gap: 12px; }
+        .pcar-nav-btn {
+            width: 46px; height: 46px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: rgba(255,255,255,0.45);
+            font-size: 1.1rem;
+            cursor: none;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .pcar-nav-btn:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+        .portrait-carousel-outer {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 28px 0;
+        }
+        .portrait-carousel-track {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+        .portrait-card {
+            flex-shrink: 0;
+            width: 270px;
+            position: relative;
+            transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.65s ease;
+            transform: scale(0.82);
+            opacity: 0.36;
+            cursor: none;
+        }
+        .portrait-card.active { transform: scale(1); opacity: 1; }
+        .portrait-video-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 9/16;
+            background: #0d0d0d;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .portrait-card.active .portrait-video-box { border-color: rgba(255,255,255,0.14); }
+        .portrait-video-box video { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .portrait-video-box::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.12) 42%, transparent 68%);
+            pointer-events: none;
+        }
+        .portrait-info {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 18px 16px 74px;
+            z-index: 10; pointer-events: none;
+        }
+        .portrait-info-tag {
+            font-size: 0.55rem; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--accent); margin-bottom: 5px;
+        }
+        .portrait-info-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.92rem; font-weight: 700; text-transform: uppercase;
+            color: rgba(255,255,255,0.92); line-height: 1.2;
+        }
+        .portrait-controls {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 14px 16px;
+            z-index: 20;
+            display: flex; align-items: center; justify-content: space-between; gap: 10px;
+        }
+        .pctl-play-btn {
+            width: 34px; height: 34px;
+            border: 1px solid rgba(255,255,255,0.28);
+            border-radius: 50%;
+            background: transparent; color: #fff;
+            cursor: none;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease; flex-shrink: 0;
+        }
+        .pctl-play-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.55); }
+        .pctl-play-btn svg { width: 11px; height: 11px; fill: #fff; pointer-events: none; }
+        .pctl-vol { display: flex; align-items: center; gap: 8px; flex: 1; justify-content: flex-end; }
+        .pctl-mute-btn {
+            background: transparent; border: none;
+            color: rgba(255,255,255,0.5); cursor: none;
+            padding: 4px; display: flex; align-items: center;
+            transition: color 0.2s ease; flex-shrink: 0;
+        }
+        .pctl-mute-btn:hover { color: #fff; }
+        .pctl-mute-btn svg { width: 14px; height: 14px; fill: currentColor; pointer-events: none; }
+        .pctl-vol-slider {
+            width: 68px; height: 2px;
+            -webkit-appearance: none; appearance: none;
+            background: rgba(255,255,255,0.18); border-radius: 2px;
+            outline: none; cursor: none;
+        }
+        .pctl-vol-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 10px; height: 10px; border-radius: 50%;
+            background: var(--accent); cursor: none;
+            transition: transform 0.2s ease;
+        }
+        .pctl-vol-slider::-webkit-slider-thumb:hover { transform: scale(1.35); }
+        .portrait-progress {
+            position: absolute; top: 0; left: 0; right: 0;
+            height: 2px; background: rgba(255,255,255,0.08); z-index: 30;
+        }
+        .portrait-progress-bar {
+            height: 100%; background: var(--accent); width: 0%;
+            transition: width 0.1s linear;
+        }
+        .pcar-dots {
+            display: flex; gap: 8px; justify-content: center; margin-top: 42px;
+        }
+        .pcar-dot {
+            width: 22px; height: 2px;
+            background: rgba(255,255,255,0.16);
+            cursor: none; transition: all 0.35s ease;
+        }
+        .pcar-dot.active { width: 44px; background: var(--accent); }
+
+        /* ============================================
            SCROLL ANIMATIONS
            ============================================ */
         .fade-up {
@@ -667,6 +807,16 @@
 
             /* Showreel */
             .showreel { padding: 0 20px 64px; }
+
+            /* Portrait Carousel */
+            .portrait-reel { padding: 64px 0; }
+            .portrait-reel-header { padding: 0 20px; margin-bottom: 36px; }
+            .portrait-card { width: 210px; }
+            .portrait-carousel-track { gap: 20px; }
+            .pctl-vol-slider { width: 48px; }
+            .pcar-nav-btn { cursor: pointer; }
+            .pctl-play-btn { cursor: pointer; }
+            .pctl-mute-btn { cursor: pointer; }
 
             /* Contact */
             .contact { padding: 64px 20px 50px; }
@@ -846,6 +996,114 @@
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- PORTRAIT VIDEO CAROUSEL -->
+<section class="portrait-reel" id="portrait-reel">
+    <div class="portrait-reel-header fade-up">
+        <div>
+            <div class="section-eyebrow">Social Reel</div>
+            <div class="section-heading">Portrait Films</div>
+        </div>
+        <div class="pcar-nav-group">
+            <button class="pcar-nav-btn" id="pcarPrev" aria-label="Previous">←</button>
+            <button class="pcar-nav-btn" id="pcarNext" aria-label="Next">→</button>
+        </div>
+    </div>
+    <div class="portrait-carousel-outer" id="pcarOuter">
+        <div class="portrait-carousel-track" id="pcarTrack">
+
+            <!-- Card 0 -->
+            <div class="portrait-card active" data-pindex="0">
+                <div class="portrait-video-box">
+                    <div class="portrait-progress"><div class="portrait-progress-bar" id="pbar0"></div></div>
+                    <video id="pvid0" loop playsinline preload="metadata"
+                           src="https://res.cloudinary.com/dveg0ai0n/video/upload/v1778934828/Cashmere_House_Animation_fryrkp.mp4"></video>
+                    <div class="portrait-info">
+                        <div class="portrait-info-tag">Animation</div>
+                        <div class="portrait-info-title">Cashmere House</div>
+                    </div>
+                    <div class="portrait-controls">
+                        <button class="pctl-play-btn" data-vidid="pvid0" data-iconid="picon0">
+                            <svg id="picon0" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </button>
+                        <div class="pctl-vol">
+                            <button class="pctl-mute-btn" data-vidid="pvid0" data-iconid="pvolicon0">
+                                <svg id="pvolicon0" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round">
+                                    <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/>
+                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                                </svg>
+                            </button>
+                            <input type="range" class="pctl-vol-slider" data-vidid="pvid0" data-iconid="pvolicon0" min="0" max="1" step="0.05" value="1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 1 -->
+            <div class="portrait-card" data-pindex="1">
+                <div class="portrait-video-box">
+                    <div class="portrait-progress"><div class="portrait-progress-bar" id="pbar1"></div></div>
+                    <video id="pvid1" loop playsinline preload="metadata"
+                           src="https://res.cloudinary.com/dveg0ai0n/video/upload/v1778934828/Cashmere_House_Animation_fryrkp.mp4"></video>
+                    <div class="portrait-info">
+                        <div class="portrait-info-tag">Brand Film</div>
+                        <div class="portrait-info-title">Visual Identity</div>
+                    </div>
+                    <div class="portrait-controls">
+                        <button class="pctl-play-btn" data-vidid="pvid1" data-iconid="picon1">
+                            <svg id="picon1" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </button>
+                        <div class="pctl-vol">
+                            <button class="pctl-mute-btn" data-vidid="pvid1" data-iconid="pvolicon1">
+                                <svg id="pvolicon1" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round">
+                                    <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/>
+                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                                </svg>
+                            </button>
+                            <input type="range" class="pctl-vol-slider" data-vidid="pvid1" data-iconid="pvolicon1" min="0" max="1" step="0.05" value="1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="portrait-card" data-pindex="2">
+                <div class="portrait-video-box">
+                    <div class="portrait-progress"><div class="portrait-progress-bar" id="pbar2"></div></div>
+                    <video id="pvid2" loop playsinline preload="metadata"
+                           src="https://res.cloudinary.com/dveg0ai0n/video/upload/v1778934828/Cashmere_House_Animation_fryrkp.mp4"></video>
+                    <div class="portrait-info">
+                        <div class="portrait-info-tag">Narrative</div>
+                        <div class="portrait-info-title">Motion Story</div>
+                    </div>
+                    <div class="portrait-controls">
+                        <button class="pctl-play-btn" data-vidid="pvid2" data-iconid="picon2">
+                            <svg id="picon2" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </button>
+                        <div class="pctl-vol">
+                            <button class="pctl-mute-btn" data-vidid="pvid2" data-iconid="pvolicon2">
+                                <svg id="pvolicon2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round">
+                                    <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/>
+                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                                </svg>
+                            </button>
+                            <input type="range" class="pctl-vol-slider" data-vidid="pvid2" data-iconid="pvolicon2" min="0" max="1" step="0.05" value="1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="pcar-dots" id="pcarDots">
+        <div class="pcar-dot active" data-goto="0"></div>
+        <div class="pcar-dot" data-goto="1"></div>
+        <div class="pcar-dot" data-goto="2"></div>
     </div>
 </section>
 
@@ -1097,6 +1355,123 @@
         });
     }, { threshold: 0.25 });
     if (grid) gridObs.observe(grid);
+
+    /* ---------- Portrait Video Carousel ---------- */
+    (function () {
+        let pIdx = 0;
+        const TOTAL = 3;
+        const GAP = 28;
+
+        function pcarRefresh() {
+            const track = document.getElementById('pcarTrack');
+            const outer = document.getElementById('pcarOuter');
+            if (!track || !outer) return;
+
+            const cards = document.querySelectorAll('.portrait-card');
+            const cw = cards[0] ? cards[0].offsetWidth : 270;
+            const ow = outer.offsetWidth;
+            const offset = ow / 2 - cw / 2 - pIdx * (cw + GAP);
+            track.style.transform = `translateX(${offset}px)`;
+
+            cards.forEach((card, i) => {
+                const wasActive = card.classList.contains('active');
+                const isNow = i === pIdx;
+                card.classList.toggle('active', isNow);
+                if (!isNow && wasActive) {
+                    const vid = document.getElementById('pvid' + i);
+                    if (vid) { vid.pause(); setPlayIcon('picon' + i, false); }
+                }
+            });
+
+            document.querySelectorAll('.pcar-dot').forEach((d, i) => d.classList.toggle('active', i === pIdx));
+        }
+
+        function pcarTo(i) { pIdx = ((i % TOTAL) + TOTAL) % TOTAL; pcarRefresh(); }
+
+        document.getElementById('pcarPrev').addEventListener('click', () => pcarTo(pIdx - 1));
+        document.getElementById('pcarNext').addEventListener('click', () => pcarTo(pIdx + 1));
+        document.querySelectorAll('.pcar-dot').forEach(d => {
+            d.addEventListener('click', () => pcarTo(+d.dataset.goto));
+        });
+
+        /* Touch swipe */
+        let tsX = 0;
+        const outer = document.getElementById('pcarOuter');
+        if (outer) {
+            outer.addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, { passive: true });
+            outer.addEventListener('touchend', e => {
+                const dx = e.changedTouches[0].clientX - tsX;
+                if (Math.abs(dx) > 44) pcarTo(dx < 0 ? pIdx + 1 : pIdx - 1);
+            }, { passive: true });
+        }
+
+        window.addEventListener('resize', pcarRefresh);
+        window.addEventListener('load', pcarRefresh);
+        setTimeout(pcarRefresh, 50);
+
+        /* Progress bars */
+        setInterval(() => {
+            for (let i = 0; i < TOTAL; i++) {
+                const vid = document.getElementById('pvid' + i);
+                const bar = document.getElementById('pbar' + i);
+                if (vid && bar && vid.duration) bar.style.width = (vid.currentTime / vid.duration * 100) + '%';
+            }
+        }, 120);
+
+        /* Play / Pause buttons */
+        document.querySelectorAll('.pctl-play-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const vid = document.getElementById(btn.dataset.vidid);
+                const iconId = btn.dataset.iconid;
+                if (!vid) return;
+                if (vid.paused) { vid.play(); setPlayIcon(iconId, true); }
+                else            { vid.pause(); setPlayIcon(iconId, false); }
+            });
+        });
+
+        /* Mute buttons */
+        document.querySelectorAll('.pctl-mute-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const vid = document.getElementById(btn.dataset.vidid);
+                if (!vid) return;
+                vid.muted = !vid.muted;
+                setVolIcon(btn.dataset.iconid, vid.muted);
+            });
+        });
+
+        /* Volume sliders */
+        document.querySelectorAll('.pctl-vol-slider').forEach(sl => {
+            sl.addEventListener('input', () => {
+                const vid = document.getElementById(sl.dataset.vidid);
+                if (!vid) return;
+                vid.volume = +sl.value;
+                if (+sl.value > 0 && vid.muted) { vid.muted = false; setVolIcon(sl.dataset.iconid, false); }
+                if (+sl.value === 0)              { vid.muted = true;  setVolIcon(sl.dataset.iconid, true); }
+            });
+        });
+
+        /* Cursor hover */
+        document.querySelectorAll('.pctl-play-btn,.pctl-mute-btn,.pcar-nav-btn,.pcar-dot,.portrait-card').forEach(el => {
+            el.addEventListener('mouseenter', () => { cur.classList.add('hover'); fol.classList.add('hover'); });
+            el.addEventListener('mouseleave', () => { cur.classList.remove('hover'); fol.classList.remove('hover'); });
+        });
+
+        function setPlayIcon(id, playing) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.innerHTML = playing
+                ? '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>'
+                : '<polygon points="5,3 19,12 5,21"/>';
+        }
+
+        function setVolIcon(id, muted) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.innerHTML = muted
+                ? '<path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/><line x1="23" y1="9" x2="17" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="17" y1="9" x2="23" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>'
+                : '<path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>';
+        }
+    })();
 </script>
 </body>
 </html>
