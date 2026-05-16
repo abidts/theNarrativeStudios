@@ -1139,11 +1139,40 @@
                 </div>
             </div>
 
+            <!-- Card 2 -->
+            <div class="portrait-card" data-pindex="2">
+                <div class="portrait-video-box">
+                    <div class="portrait-progress"><div class="portrait-progress-bar" id="pbar2"></div></div>
+                    <video id="pvid2" loop playsinline preload="metadata"
+                           src="https://res.cloudinary.com/dveg0ai0n/video/upload/v1778945667/Product_Ad_asalc5.mp4"></video>
+                    <div class="portrait-info">
+                        <div class="portrait-info-tag">Product Ad</div>
+                        <div class="portrait-info-title">Product Ad</div>
+                    </div>
+                    <div class="portrait-controls">
+                        <button class="pctl-play-btn" data-vidid="pvid2" data-iconid="picon2">
+                            <svg id="picon2" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </button>
+                        <div class="pctl-vol">
+                            <button class="pctl-mute-btn" data-vidid="pvid2" data-iconid="pvolicon2">
+                                <svg id="pvolicon2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round">
+                                    <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/>
+                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                                </svg>
+                            </button>
+                            <input type="range" class="pctl-vol-slider" data-vidid="pvid2" data-iconid="pvolicon2" min="0" max="1" step="0.05" value="1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
     <div class="pcar-dots" id="pcarDots">
         <div class="pcar-dot active" data-goto="0"></div>
         <div class="pcar-dot" data-goto="1"></div>
+        <div class="pcar-dot" data-goto="2"></div>
     </div>
 </section>
 
@@ -1427,7 +1456,7 @@
     /* ---------- Portrait Video Carousel ---------- */
     (function () {
         let pIdx = 0;
-        const TOTAL = 2;
+        const TOTAL = 3;
         const GAP = 28;
 
         function pcarRefresh() {
