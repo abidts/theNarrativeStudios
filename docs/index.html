@@ -156,7 +156,7 @@
         .menu-nav li { overflow: hidden; margin-bottom: 4px; }
         .menu-nav a {
             font-family: 'Syne', sans-serif;
-            font-size: clamp(3rem, 8vw, 8rem);
+            font-size: clamp(1.8rem, 4.5vw, 4.5rem);
             font-weight: 800;
             text-transform: uppercase;
             color: rgba(255,255,255,0.12);
@@ -900,7 +900,7 @@
             /* Fullscreen menu */
             .fullscreen-menu { padding: 90px 20px 44px; }
             .menu-footer { flex-direction: column; align-items: flex-start; gap: 24px; }
-            .menu-nav a { font-size: clamp(2.6rem, 11vw, 5rem); }
+            .menu-nav a { font-size: clamp(1.6rem, 7vw, 3rem); }
         }
 
         /* — Small phones (≤ 480px) — */
@@ -1074,7 +1074,7 @@
     <div class="portrait-reel-header fade-up">
         <div>
             <div class="section-eyebrow">Social Reel</div>
-            <div class="section-heading">Portrait Films</div>
+            <div class="section-heading">Narrative Films</div>
         </div>
         <div class="pcar-nav-group">
             <button class="pcar-nav-btn" id="pcarPrev" aria-label="Previous">←</button>
@@ -1492,7 +1492,7 @@
             d.addEventListener('click', () => pcarTo(+d.dataset.goto));
         });
 
-        /* Touch swipe */
+        /* Touch / mouse swipe */
         let tsX = 0;
         const outer = document.getElementById('pcarOuter');
         if (outer) {
@@ -1501,6 +1501,18 @@
                 const dx = e.changedTouches[0].clientX - tsX;
                 if (Math.abs(dx) > 44) pcarTo(dx < 0 ? pIdx + 1 : pIdx - 1);
             }, { passive: true });
+
+            /* Mouse drag (laptop) */
+            let mdX = 0, mdDragging = false;
+            outer.addEventListener('mousedown', e => { mdX = e.clientX; mdDragging = true; });
+            outer.addEventListener('mousemove', e => { if (mdDragging) e.preventDefault(); });
+            outer.addEventListener('mouseup', e => {
+                if (!mdDragging) return;
+                mdDragging = false;
+                const dx = e.clientX - mdX;
+                if (Math.abs(dx) > 44) pcarTo(dx < 0 ? pIdx + 1 : pIdx - 1);
+            });
+            outer.addEventListener('mouseleave', () => { mdDragging = false; });
         }
 
         window.addEventListener('resize', pcarRefresh);
