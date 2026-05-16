@@ -1170,41 +1170,12 @@
                 </div>
             </div>
 
-            <!-- Card 3 -->
-            <div class="portrait-card" data-pindex="3">
-                <div class="portrait-video-box">
-                    <div class="portrait-progress"><div class="portrait-progress-bar" id="pbar3"></div></div>
-                    <video id="pvid3" loop playsinline preload="metadata"
-                           src="https://res.cloudinary.com/dveg0ai0n/video/upload/v1778953653/FERRARI_CONCEPT_TRAILER_aki5r8.mp4"></video>
-                    <div class="portrait-info">
-                        <div class="portrait-info-tag">Concept Trailer</div>
-                        <div class="portrait-info-title">Ferrari</div>
-                    </div>
-                    <div class="portrait-controls">
-                        <button class="pctl-play-btn" data-vidid="pvid3" data-iconid="picon3">
-                            <svg id="picon3" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-                        </button>
-                        <div class="pctl-vol">
-                            <button class="pctl-mute-btn" data-vidid="pvid3" data-iconid="pvolicon3">
-                                <svg id="pvolicon3" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round">
-                                    <path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/>
-                                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-                                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-                                </svg>
-                            </button>
-                            <input type="range" class="pctl-vol-slider" data-vidid="pvid3" data-iconid="pvolicon3" min="0" max="1" step="0.05" value="1">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
     <div class="pcar-dots" id="pcarDots">
         <div class="pcar-dot active" data-goto="0"></div>
         <div class="pcar-dot" data-goto="1"></div>
         <div class="pcar-dot" data-goto="2"></div>
-        <div class="pcar-dot" data-goto="3"></div>
     </div>
 </section>
 
@@ -1290,6 +1261,8 @@
         <!-- Videos -->
         <video class="sr-video active" id="srvid0" loop playsinline preload="metadata"
                src="https://res.cloudinary.com/dveg0ai0n/video/upload/v1778935744/d_Decos_Interior_gbdknp.mp4"></video>
+        <video class="sr-video" id="srvid1" loop playsinline preload="metadata"
+               src="https://res.cloudinary.com/dveg0ai0n/video/upload/v1778953653/FERRARI_CONCEPT_TRAILER_aki5r8.mp4"></video>
 
         <!-- Gradient overlay -->
         <div class="sr-grad"></div>
@@ -1298,6 +1271,16 @@
         <div class="sr-info">
             <div class="sr-info-tag" id="srTag">Interior Design</div>
             <div class="sr-info-title" id="srTitle">D Decos</div>
+        </div>
+
+        <!-- Nav arrows -->
+        <button class="sr-nav sr-nav-prev" id="srPrev">←</button>
+        <button class="sr-nav sr-nav-next" id="srNext">→</button>
+
+        <!-- Dots -->
+        <div class="sr-dots">
+            <div class="sr-dot active" data-srto="0"></div>
+            <div class="sr-dot" data-srto="1"></div>
         </div>
 
         <!-- Bottom controls -->
@@ -1488,7 +1471,7 @@
     /* ---------- Portrait Video Carousel ---------- */
     (function () {
         let pIdx = 0;
-        const TOTAL = 4;
+        const TOTAL = 3;
         const GAP = 28;
 
         function pcarRefresh() {
@@ -1616,10 +1599,11 @@
 
     /* ---------- Showreel Video Carousel ---------- */
     (function () {
-        const SR_TOTAL = 1;
+        const SR_TOTAL = 2;
         let srIdx = 0;
         const srSlides = [
-            { tag: 'Interior Design', title: 'D Decos' }
+            { tag: 'Interior Design', title: 'D Decos' },
+            { tag: 'Concept Trailer', title: 'Ferrari' }
         ];
 
         function srVid(i) { return document.getElementById('srvid' + i); }
