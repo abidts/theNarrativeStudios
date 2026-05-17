@@ -1263,6 +1263,8 @@
                src="https://res.cloudinary.com/dveg0ai0n/video/upload/v1778935744/d_Decos_Interior_gbdknp.mp4"></video>
         <video class="sr-video" id="srvid1" loop playsinline preload="metadata"
                src="https://res.cloudinary.com/dveg0ai0n/video/upload/v1778953653/FERRARI_CONCEPT_TRAILER_aki5r8.mp4"></video>
+        <video class="sr-video" id="srvid2" loop playsinline preload="metadata"
+               src="https://res.cloudinary.com/dveg0ai0n/video/upload/v1778960243/PARAS_AD_2_r3qyrv.mp4"></video>
 
         <!-- Gradient overlay -->
         <div class="sr-grad"></div>
@@ -1281,6 +1283,7 @@
         <div class="sr-dots">
             <div class="sr-dot active" data-srto="0"></div>
             <div class="sr-dot" data-srto="1"></div>
+            <div class="sr-dot" data-srto="2"></div>
         </div>
 
         <!-- Bottom controls -->
@@ -1587,11 +1590,12 @@
 
     /* ---------- Showreel Video Carousel ---------- */
     (function () {
-        const SR_TOTAL = 2;
+        const SR_TOTAL = 3;
         let srIdx = 0;
         const srSlides = [
             { tag: 'Interior Design', title: 'D Decos' },
-            { tag: 'Concept Trailer', title: 'Ferrari' }
+            { tag: 'Concept Trailer', title: 'Ferrari' },
+            { tag: 'Brand Ad', title: 'Paras' }
         ];
 
         function srVid(i) { return document.getElementById('srvid' + i); }
